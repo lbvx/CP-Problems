@@ -5,7 +5,6 @@ C = [2]
 T = [A, B, C]
 
 def check(x, y, V):
-    a = []
     for v in V:
         if x in v:
             a = v
@@ -17,10 +16,8 @@ def check(x, y, V):
 
 def main():
     x, y = [int(i) for i in input().split()]
-    b = check(x, y, T)
 
-    print("Yes" if b else "No")
-
+    print("Yes" if check(x, y, T) else "No")
 
 if __name__ == '__main__':
     main()
