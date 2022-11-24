@@ -3,6 +3,8 @@
 
 int main()
 {
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(NULL);
     int n;
     std::pair<int, int> v;
     std::stack<std::pair<int, int>> st;
