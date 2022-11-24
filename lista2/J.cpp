@@ -25,14 +25,14 @@ int main()
             if (!st.empty())
                 st.pop();
             else
-                std::cout << "EMPTY" << "\n";
+                std::cout << "EMPTY\n";
         }
         else if (in[1] == 'I') // MIN
         {
             if (!st.empty())
-                std::cout << st.top().second << "\n";
+                std::cout << st.top().second << '\n';
             else
-                std::cout << "EMPTY" << "\n";
+                std::cout << "EMPTY\n";
         }
     }
     return 0;
