@@ -16,6 +16,22 @@ int precedence(char op)
     }
 }
 
+bool isSymbol(char c)
+{
+    switch (c)
+    {
+        case '*':
+        case '/':
+        case '+':
+        case '-':
+        case '(':
+        case ')':
+            return true;
+        default:
+            return 0;
+    }
+}
+
 std::string infixToPostfix(std::string infix)
 {
     std::stack<char> stacc;
@@ -23,7 +39,7 @@ std::string infixToPostfix(std::string infix)
 
     for (auto c : infix)
     {
-        if (!precedence(c))
+        if (!isSymbol(c))
             postfix += c;
         else if (c == '(') 
             stacc.push('(');
@@ -72,7 +88,10 @@ int main()
         }
         // std::cout << infix << std::endl;
         postfix = infixToPostfix(infix);
-        std::cout << postfix << std::endl;
+        std::cout << postfix;
+        if (i != n - 1)
+            std::cout << '\n';
+        std::cout << std::endl;
     }
     return 0;    
 }
