@@ -33,7 +33,11 @@ def main():
             elif l != '+':
                 guess += d.Decimal(parties[l])
 
-        print(f'Guess #{i+1} was', ('correct.' if correct else 'incorrect.'))
+        print('Guess #', i+1, ' was ', sep='', end='')
+        if correct:
+            print('correct.')
+        else:
+            print('incorrect.')
 
 if __name__ == '__main__':
     main()
