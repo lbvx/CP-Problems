@@ -1,44 +1,30 @@
 #include <iostream>
-#include <vector>
-#include <set>
+#include <map>
+#include <algorithm>
 
 int main()
 {
-    std::vector<std::set<int>> ars;
+    std::map<int, int> count;
     int t, n, in;
-
+    int min;
+    
     std::cin >> t;
     while (t--)
     {
         std::cin >> n;
-        if (ars.empty())
-        {
-            ars.push_back(std::set<int>());
-        }
+        min = n + 1;
         while (n--)
         {
             std::cin >> in;
-            bool added = false;
-            for (auto &s : ars)
-            {
-                if (s.find(in) == s.end())
-                {
-                    // std::cout << "nao tem " << in << '\n';
-                    s.insert(in);
-                    added = true;
-                    break;
-                }
-            }
-            if (!added)
-            {
-                // std::cout << "criando novo\n";
-                std::set<int> ne;
-                ne.insert(in);
-                ars.push_back(ne);
-            }
+            min = std::min(min, in);
+            count[in]++;
         }
-        std::cout << ars.size() << '\n';
-        ars.clear();
+        auto mostCommon = std::max_element(count.begin(), count.end(),
+                         [] (const std::pair<int, int> & p1, const std::pair<int, int> & p2)
+                         {return p1.second < p2.second;});
+        std::cout << mostCommon->second / min << '\n';
+
+        count.clear();
     }
 
     return 0;
