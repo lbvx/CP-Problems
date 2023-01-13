@@ -4,27 +4,30 @@ using namespace std;
 
 template<typename T>
 class BITree {
+public:
+    // É preciso adicionar um elemento sentinela na última posição para evitar o 
+    // erro 'off-by-one' na implementação de range_add()
+    BITree(size_t n) : ts(n + 2, 0), N(n) {}        
+
+    ll value_at(int i) { return RSQ(i); }
+
+    void range_add(size_t i, size_t j, ll x)
+    {
+        add(i, x);
+        add(j + 1, -x);
+    }
+
 private:
     vector<T> ts;
     size_t N;
 
-public:
-    BITree(size_t n) : ts(n + 1, 0), N(n) {}
-
-    T RSQ(int i, int j)
-    {
-        return RSQ(j) - RSQ(i - 1);
-    }
-
-private:
     int LSB(int n) { return n & (-n); }
 
-    T RSQ(int i)
+    ll RSQ(int i)
     {
-        T sum = 0;
+        ll sum = 0;
 
-        while (i >= 1)
-        {
+        while (i >= 1) {
             sum += ts[i];
             i -= LSB(i);
         }
@@ -32,14 +35,9 @@ private:
         return sum;
     }
 
-public:
-    void add(size_t i, const T& x)
+    void add(size_t i, ll x)
     {
-        if (i == 0)
-            return;
-
-        while (i <= N)
-        {
+        while (i <= N) {
             ts[i] += x;
             i += LSB(i);
         }
@@ -59,16 +57,13 @@ int main()
         int s, e;
         for (int k = 0; k < n; k++)
         {
-            std::cout << "bing\n";
             std::cin >> s >> e;
-            for (int i = s; i < e; i++)
-            {
-                std::cout << "asd\n";
-                bt.add(i, 1);
-            }
+            bt.range_add(s, e, 1);
         }
 
-        std::cout << bt.RSQ(1, n) << '\n';
+        int maior = bt.value_at(1);
+        for (int i = 0; i < n;)
+
     }
     
     return 0;
