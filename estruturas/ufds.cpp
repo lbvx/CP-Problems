@@ -1,6 +1,3 @@
-#ifndef UNION_FIND_H
-#define UNION_FIND_H
-
 #include <vector>
 #include <numeric>
 
@@ -46,5 +43,3 @@ public:
         size[p] += size[q];
     }
 };
-
-#endif
