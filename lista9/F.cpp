@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
+#include <queue>
 
 struct city
 {
@@ -27,15 +27,18 @@ int main()
             std::cin >> cities[i].population;
             cities[i].boxes = 1;
         }
+        std::priority_queue<city, std::vector<city>, decltype(cmp)> citiesPQ(cities.begin(), cities.end(), cmp);
         boxes -= nCities;
         while (boxes > 0)
         {
-            auto m = std::max_element(cities.begin(), cities.end(), cmp);
-            m->boxes++;
+            city m = citiesPQ.top();
+            citiesPQ.pop();
+            m.boxes++;
+            citiesPQ.push(m);
             boxes--;
         }
-        auto m = std::max_element(cities.begin(), cities.end(), cmp);
-        std::cout << (m->population + m->boxes - 1) / m->boxes << '\n';
+        city m = citiesPQ.top();
+        std::cout << (m.population + m.boxes - 1) / m.boxes << '\n';
 
         std::cin >> nCities >> boxes;
     }
