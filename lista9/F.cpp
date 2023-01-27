@@ -6,6 +6,7 @@ struct city
 {
     int population;
     int boxes;
+    int ratio;
 };
 
 int main()
@@ -16,8 +17,7 @@ int main()
     int nCities, boxes;
     std::cin >> nCities >> boxes;
 
-    auto cmp = [](const city &l, const city &r)
-        {return (l.population + l.boxes - 1) / l.boxes < (r.population + r.boxes - 1) / r.boxes;};
+    auto cmp = [](const city &l, const city &r) {return l.ratio < r.ratio;};
 
     while (nCities != -1)
     {
@@ -26,6 +26,7 @@ int main()
         {
             std::cin >> cities[i].population;
             cities[i].boxes = 1;
+            cities[i].ratio = cities[i].population;
         }
         std::priority_queue<city, std::vector<city>, decltype(cmp)> citiesPQ(cities.begin(), cities.end(), cmp);
         boxes -= nCities;
@@ -34,11 +35,12 @@ int main()
             city m = citiesPQ.top();
             citiesPQ.pop();
             m.boxes++;
+            m.ratio = (m.population + m.boxes - 1) / m.boxes;
             citiesPQ.push(m);
             boxes--;
         }
         city m = citiesPQ.top();
-        std::cout << (m.population + m.boxes - 1) / m.boxes << '\n';
+        std::cout << m.ratio << '\n';
 
         std::cin >> nCities >> boxes;
     }
