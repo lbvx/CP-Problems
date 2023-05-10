@@ -3,19 +3,20 @@
 using namespace std;
 using ll = long long;
 
-ll powLL(ll b, ll p)
+ll powLL(ll base, ll exp)
 {
-    if (p == 0LL)
-        return 1LL;
-    if (b == 0LL)
-        return 0LL;
-
-    ll res = 1;
-    while (p--)
+    ll result = 1;
+    for (;;)
     {
-        res *= b;
+        if (exp & 1)
+            result *= base;
+        exp >>= 1;
+        if (!exp)
+            break;
+        base *= base;
     }
-    return res;
+
+    return result;
 }
 
 int main()
@@ -27,23 +28,24 @@ int main()
         getline(cin, cfs);
         getline(cin, cfs);
 
+        stringstream ss(cfs);
+        ll c;
         vector<ll> coefs;
-        size_t p;
-        size_t l = 0;
-        while ((p = cfs.find(' ', l)) != string::npos)
+        while (ss >> c)
         {
-            string numstr = cfs.substr(l, p - l);
-            coefs.push_back(stoi(numstr));
-            l = p + 1;
+            coefs.push_back(c);
         }
 
         ll res = 0LL;
-        for (int i = 0; i < coefs.size(); i++)
+        for (size_t i = 0; i < coefs.size(); i++)
         {
-            ll n = coefs.size() - i;
-            res += n * (powLL(x, n - 1)) * coefs[i];
+            ll n = coefs.size() - i - 1;
+            // cout << "n=" << n << " coef=" << coefs[i] << " x=" << x << endl;
+            if (n != 0)
+                res += n * powLL(x, n - 1) * coefs[i];
         }
         cout << res << endl;
+
     }
     return 0;
 }
