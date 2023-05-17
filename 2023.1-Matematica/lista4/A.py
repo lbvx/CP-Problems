@@ -1,3 +1,5 @@
+# Exponential 
+
 x = int(input())
 res = 1
 p = 2
