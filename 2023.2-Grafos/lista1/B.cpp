@@ -4,7 +4,7 @@
 using namespace std;
 using ll = long long;
 
-bool dfs_r(const vector<set<int>> &graph, set<int> visited, int node, int target, int depth, int maxDepth)
+bool dfs_r(const vector<set<int>> &graph, set<int> &visited, int node, int target, int depth, int maxDepth)
 {
     if (depth > maxDepth)
         return false;
