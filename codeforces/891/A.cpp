@@ -1,4 +1,4 @@
-// 
+// Array Coloring
 #include <bits/stdc++.h>
 
 using namespace std;
